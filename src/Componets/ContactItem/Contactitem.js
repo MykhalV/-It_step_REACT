@@ -27,9 +27,10 @@ const ContactItem = ({
     case "Family":
       statusStyles = "lab lab-primary";
       break;
-    default:
+    case "Work":
       statusStyles = "lab lab-success";
       break;
+      default:
   }
 
   switch (favorite) {

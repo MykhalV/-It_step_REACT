@@ -33,12 +33,45 @@ class App extends React.Component {
         avatar: "49",
         favorite: true,
       },
+      {
+        id: uuidv4(),
+        name: "Lisa Budosh",
+        status: "Friends",
+        phone: "097-636-33-44",
+        email: "lisa@email.com",
+        gender: "women",
+        avatar: "23",
+        favorite: false,
+      },
+      {
+        id: uuidv4(),
+        name: "Peter Anderson",
+        status: "Family",
+        phone: "097-312-44-22",
+        email: "peter@email.com",
+        gender: "men",
+        avatar: "32",
+        favorite: false,
+      },
+      {
+        id: uuidv4(),
+        name: "Zoe Anderson",
+        status: "Family",
+        phone: "097-444-23-44",
+        email: "zoe@email.com",
+        gender: "women",
+        avatar: "19",
+        favorite: false,
+      },
     ],
   };
 
+
+
+
   onChangeStatus = (id) => {
     const index = this.state.ContactListArr.findIndex((i) => i.id === id); // знаходимо ід елемента масиву на який клікнули
-    let tmpList = this.state.ContactListArr.slice(); // повна копія массиву
+    let tmpList = this.state.ContactListArr.slice(); // повна копія массиву (щоб в копії зробити зміни та вкінці замінити оригінал на копію зі знімани)
     switch (tmpList[index].status) {
       case "Friends":
         tmpList[index].status = "Work";
@@ -49,20 +82,20 @@ class App extends React.Component {
       case "Family":
         tmpList[index].status = "Private";
         break;
-        default:
-      //case "Private":
+      case "Private":
         tmpList[index].status = "Friends";
         break;
+      default:
     }
     this.setState({
-      ContactListArr: tmpList,
+      ContactListArr: tmpList, // заміна оригіналу на копію slice()
     });
   };
 
 
 onChangeStatusStar = (id) => {
-  const index = this.state.ContactListArr.findIndex((i) => i.id === id);
-  let tmpList = this.state.ContactListArr.slice();
+  const index = this.state.ContactListArr.findIndex((i) => i.id === id); // знаходимо ід елемента масиву на який клікнули
+  let tmpList = this.state.ContactListArr.slice(); // повна копія массиву (щоб в копії зробити зміни та вкінці замінити оригінал на копію зі знімани)
   switch (tmpList[index].favorite) {
     case true:
       tmpList[index].favorite = false;
@@ -72,14 +105,10 @@ onChangeStatusStar = (id) => {
       break;
   }
   this.setState({
-    ContactListArr: tmpList,
+    ContactListArr: tmpList, // заміна оригіналу на копію slice()
   });
+
 }
-
-
-
-
-
 
 
 
@@ -91,7 +120,7 @@ onChangeStatusStar = (id) => {
         <Header />
         <div className="container bootstrap snippets bootdeys bootdey">
           <div className="row decor-default">
-            <Sidebar />
+            <Sidebar ListSidebar = {ContactListArr}/>
             <ContactList
               List={ContactListArr}
               onChangeStatus={this.onChangeStatus}
